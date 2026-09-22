@@ -1,0 +1,13 @@
+h1 {
+  color: #660916;
+  font-size: 50px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  -webkit-text-stroke: 0.5px rgb(248, 245, 245);
+}
+
+p {
+  color: #4d0b06;
+  font-size: 30px;
+
+}

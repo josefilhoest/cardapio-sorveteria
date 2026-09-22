@@ -1,0 +1,38 @@
+:root {
+  font-family: Inter, system-ui, sans-serif;
+  color: #24312d;
+  background: #fffaf2;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.cabecalho {
+  padding: 32px 20px;
+  color: white;
+  text-align: center;
+  background: linear-gradient(135deg, #155c4a, #1f7a61);
+}
