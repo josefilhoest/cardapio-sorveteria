@@ -1,59 +1,33 @@
-const produtos = [
-    {
-        id: 1,
-        nome: "Sorvete de Chocolate",
-        descricao: "Sorvete cremoso sabor chocolate",
-        preco: 5.0,
-        categoria: "sorvetes",
-    },
-
-    {
-        id: 2,
-        nome: "Sorvete de Morango",
-        descricao: "Sorvete cremoso sabor morango",
-        preco: 5.0,
-        categoria: "sorvetes",
-    },
-
-    {
-        id: 3,
-        nome: "Açaí 300ml",
-        descricao: "Açaí cremoso servido no copo",
-        preco: 12.0,
-        categoria: "acai",
-    },
-
-    {
-        id: 4,
-        nome: "Hambúrguer",
-        descricao: "Pão, carne, queijo e salada",
-        preco: 15.0,
-        categoria: "hamburgueres",
-    },
-
-    {
-        id: 5,
-        nome: "Pastel de Carne",
-        descricao: "Pastel crocante recheado com carne",
-        preco: 8.0,
-        categoria: "pasteis",
-    },
-
-    {
-        id: 6,
-        nome: "Coca-Cola Lata",
-        descricao: "Refrigerante Coca-Cola 350ml",
-        preco: 6.0,
-        categoria: "bebidas",
-    },
-
-    {
-        id: 7,
-        nome: "Coco Gelado",
-        descricao: "Coco verde gelado",
-        preco: 7.0,
-        categoria: "coco",
-    },
+export const categorias = [
+    { id: "todos", nome: "Todos" },
+    { id: "acai", nome: "Açaí" },
+    { id: "sorvetes", nome: "Sorvetes" },
+    { id: "lanches", nome: "Hambúrgueres" },
+    { id: "pasteis", nome: "Pastéis" },
+    { id: "bebidas", nome: "Bebidas" },
 ];
 
-export default produtos;
+
+export const produtos = [
+    {
+        id: "acai-500",
+        categoria: "acai",
+        nome: "Açaí 500 ml",
+        descricao: "Açaí cremoso com até 3 complementos.",
+        preco: 18,
+        imagem: "/produtos/acai-500.webp",
+        disponivel: true,
+        destaque: true,
+    },
+
+    {
+        id: "x-bacon",
+        categoria: "lanches",
+        nome: "X-Bacon",
+        descricao: "Pão, carne, queijo, bacon e salada.",
+        preco: 16,
+        imagem: "/produtos/x-bacon.webp",
+        disponivel: true,
+        destaque: false,
+    },
+];
