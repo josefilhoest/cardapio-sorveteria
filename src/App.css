@@ -1,13 +1,1546 @@
-h1 {
-  color: #660916;
-  font-size: 50px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  -webkit-text-stroke: 0.5px rgb(248, 245, 245);
+/* =========================================================
+   DOCE MEL - CARDÁPIO DIGITAL
+   JF DEV
+   ========================================================= */
+
+
+/* =========================================================
+   1. PALETA / VARIÁVEIS
+   ========================================================= */
+
+:root {
+  --vermelho: #a91524;
+  --vermelho-claro: #d81b60;
+  --vermelho-escuro: #74101b;
+  --vinho: #5c1118;
+
+  --amarelo: #f6c640;
+  --amarelo-forte: #ffb300;
+  --amarelo-claro: #fff2b8;
+
+  --creme: #fff8ea;
+  --creme-fundo: #fff2d7;
+
+  --branco: #ffffff;
+
+  --texto: #3b2420;
+  --cinza: #6f625d;
+
+  --borda: #ead8c8;
+
+  --sombra:
+    0 10px 30px rgba(92, 17, 24, 0.12);
 }
 
-p {
-  color: #4d0b06;
-  font-size: 30px;
 
+/* =========================================================
+   2. BASE
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+
+  min-width: 320px;
+
+  background:
+    linear-gradient(180deg,
+      #fffdf8 0%,
+      #fff7e8 55%,
+      var(--creme-fundo) 100%);
+
+  color: var(--texto);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+}
+
+.App {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  margin: 0;
+
+  padding: 0;
+}
+
+
+/* =========================================================
+   3. CABEÇALHO / HERO
+   ========================================================= */
+
+.cabecalho {
+  position: relative;
+
+  overflow: hidden;
+
+  min-height: 300px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 18px;
+
+  padding: 24px 24px;
+
+  text-align: center;
+
+  background:
+    linear-gradient(135deg,
+      #8f0f1d 0%,
+      #b3122a 52%,
+      #d81b60 100%);
+
+  border-radius: 26px;
+
+  box-shadow:
+    0 14px 35px rgba(92, 17, 24, 0.22);
+
+  color: var(--branco);
+}
+
+.cabecalho,
+.categorias,
+.produtos {
+  width: min(1440px, calc(100% - 40px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cabecalho::before {
+  content: "";
+
+  position: absolute;
+
+  width: 240px;
+  height: 240px;
+
+  top: -90px;
+  left: -70px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle,
+      rgba(255, 214, 79, 0.40) 0%,
+      rgba(255, 214, 79, 0.12) 45%,
+      transparent 72%);
+
+  filter: blur(4px);
+
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+.cabecalho::after {
+  content: "";
+
+  position: absolute;
+
+  width: 300px;
+  height: 300px;
+
+  right: -100px;
+  bottom: -130px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle,
+      rgba(255, 255, 255, 0.20) 0%,
+      rgba(255, 190, 110, 0.10) 48%,
+      transparent 72%);
+
+  filter: blur(6px);
+
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   4. FUNDO DECORATIVO DO HEADER
+   ========================================================= */
+
+.cabecalho-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(circle at 8% 0%,
+      rgba(255, 214, 79, 0.28) 0 70px,
+      transparent 72px),
+
+    radial-gradient(circle at 28% -15px,
+      rgba(255, 255, 255, 0.12) 0 55px,
+      transparent 57px),
+
+    radial-gradient(circle at 62% -20px,
+      rgba(255, 214, 79, 0.16) 0 60px,
+      transparent 62px),
+
+    radial-gradient(circle at 90% -10px,
+      rgba(255, 255, 255, 0.12) 0 70px,
+      transparent 72px),
+
+    radial-gradient(circle at 15% 25%,
+      rgba(255, 220, 120, 0.22) 0%,
+      rgba(255, 220, 120, 0) 18%),
+
+    radial-gradient(circle at 85% 20%,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0) 20%),
+
+    radial-gradient(circle at 75% 75%,
+      rgba(255, 215, 140, 0.16) 0%,
+      rgba(255, 215, 140, 0) 20%),
+
+    radial-gradient(circle at 25% 80%,
+      rgba(255, 255, 255, 0.11) 0%,
+      rgba(255, 255, 255, 0) 22%);
+}
+
+
+/* =========================================================
+   5. CONTEÚDO CENTRAL DO HEADER
+   ========================================================= */
+
+.conteudo-cabecalho {
+  position: relative;
+
+  z-index: 5;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =========================================================
+   6. SELO
+   ========================================================= */
+
+.selo-header {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 7px 15px;
+
+  margin-bottom: 6px;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.32);
+
+  border-radius: 999px;
+
+  background:
+    rgba(255, 255, 255, 0.12);
+
+  backdrop-filter: blur(6px);
+
+  color: #ffd65a;
+
+  font-size: 0.72rem;
+
+  font-weight: 800;
+
+  letter-spacing: 1.6px;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   7. LOGO
+   ========================================================= */
+
+.logo-sorveteria {
+  width: min(280px, 72%);
+
+  height: auto;
+
+  display: block;
+
+  margin: 8px auto 6px;
+
+  filter:
+    drop-shadow(0 12px 18px rgba(0, 0, 0, 0.22));
+}
+
+
+/* =========================================================
+   8. TEXTO DO HEADER
+   ========================================================= */
+
+.subtitulo-header {
+  max-width: 620px;
+
+  margin: 4px auto 10px;
+
+  color: #fff8ef;
+
+  font-size: 0.92rem;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   9. DESTAQUES DO HEADER
+   ========================================================= */
+
+.destaques-header {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  margin: 4px 0 12px;
+}
+
+.destaques-header span {
+  padding: 7px 12px;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.28);
+
+  border-radius: 999px;
+
+  background:
+    rgba(255, 255, 255, 0.13);
+
+  color: var(--branco);
+
+  font-size: 0.85rem;
+
+  font-weight: 700;
+
+  backdrop-filter: blur(4px);
+}
+
+
+/* =========================================================
+   10. BOTÃO VER CARDÁPIO
+   ========================================================= */
+
+.botao-pedir-agora {
+  min-width: 190px;
+
+  padding: 10px 24px;
+
+  border: none;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(135deg,
+      #ffd54f,
+      var(--amarelo-forte));
+
+  color: #70101c;
+
+  font-size: 1rem;
+
+  font-weight: 900;
+
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.20);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.botao-pedir-agora:hover {
+  transform:
+    translateY(-3px) scale(1.03);
+
+  filter: brightness(1.04);
+
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.24);
+}
+
+
+/* =========================================================
+   11. ASSINATURA JF DEV
+   ========================================================= */
+
+.assinatura-header {
+  margin: 10px 0 0;
+
+  color:
+    rgba(255, 255, 255, 0.75);
+
+  font-size: 0.72rem;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   12. SORVETES FLUTUANTES
+   ========================================================= */
+
+.decoracao-sorvete {
+  position: absolute;
+
+  z-index: 2;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 68px;
+  height: 68px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.14);
+
+  backdrop-filter: blur(5px);
+
+  font-size: 2rem;
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.12);
+
+  animation:
+    flutuar 4s ease-in-out infinite;
+}
+
+.sorvete-1 {
+  top: 18px;
+  left: 28px;
+
+  animation-delay: 0s;
+}
+
+.sorvete-2 {
+  top: 26px;
+  right: 34px;
+
+  animation-delay: 1s;
+}
+
+.sorvete-3 {
+  bottom: 20px;
+  left: 70px;
+
+  animation-delay: 2s;
+}
+
+.sorvete-4 {
+  bottom: 22px;
+  right: 80px;
+
+  animation-delay: 3s;
+}
+
+.secao-produtos {
+  width: min(1440px, calc(100% - 40px));
+  margin: 18px auto 0;
+}
+
+.titulo-secao {
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.titulo-secao span {
+  display: inline-block;
+  margin-bottom: 6px;
+
+  color: var(--vermelho);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.titulo-secao h2 {
+  margin: 0;
+
+  color: var(--vinho);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.titulo-secao p {
+  margin: 5px auto 0;
+
+  max-width: 620px;
+
+  color: var(--cinza);
+  font-size: 0.95rem;
+}
+
+@keyframes flutuar {
+  0% {
+    transform:
+      translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform:
+      translateY(-8px) rotate(3deg);
+  }
+
+  100% {
+    transform:
+      translateY(0) rotate(0deg);
+  }
+}
+
+
+/* =========================================================
+   13. CATEGORIAS
+   ========================================================= */
+
+.categorias {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+
+  padding: 10px 2px 4px;
+
+  scrollbar-width: thin;
+}
+
+.categorias button {
+  flex: 0 0 auto;
+
+  padding: 10px 18px;
+
+  border:
+    1px solid #e3b53b;
+
+  border-radius: 999px;
+
+  background:
+    var(--branco);
+
+  color:
+    var(--vinho);
+
+  font-weight: 700;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.06);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.categorias button:hover {
+  transform:
+    translateY(-2px);
+
+  background:
+    var(--amarelo);
+
+  color:
+    var(--vinho);
+
+  box-shadow:
+    0 7px 16px rgba(92, 17, 24, 0.12);
+}
+
+.categorias button:focus-visible {
+  outline:
+    3px solid rgba(169, 21, 36, 0.22);
+
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   14. PRODUTOS
+   ========================================================= */
+
+.produtos {
+  display: grid;
+
+  grid-template-columns: 1fr;
+
+  gap: 18px;
+
+  margin-top: 0px;
+}
+
+.produto-card {
+  position: relative;
+  overflow: hidden;
+
+  background: var(--branco);
+
+  border: 1px solid var(--borda);
+  border-radius: 22px;
+
+  box-shadow: var(--sombra);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.produto-card:hover {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 18px 38px rgba(92, 17, 24, 0.18);
+}
+
+.produto-card img {
+  width: 100%;
+  height: 240px;
+
+  display: block;
+
+  object-fit: cover;
+
+  background: #f4eadf;
+
+  transition: transform 0.35s ease;
+}
+
+.produto-card:hover img {
+  transform: scale(1.04);
+}
+
+.produto-conteudo {
+  padding: 18px;
+}
+
+.produto-conteudo h3 {
+  margin:
+    0 0 8px;
+
+  color:
+    var(--vermelho-escuro);
+
+  font-size:
+    1.35rem;
+}
+
+.produto-conteudo>p {
+  margin:
+    0 0 14px;
+
+  color:
+    var(--cinza);
+
+  font-size:
+    0.95rem;
+
+  line-height:
+    1.5;
+}
+
+.produto-conteudo>strong {
+  display: block;
+
+  margin-bottom: 14px;
+
+  color:
+    var(--vermelho);
+
+  font-size:
+    1.15rem;
+}
+
+
+/* =========================================================
+   15. OPÇÕES / COMPLEMENTOS
+   ========================================================= */
+
+.produto-opcoes {
+  margin:
+    16px 0;
+
+  padding:
+    14px;
+
+  background:
+    var(--creme);
+
+  border:
+    1px solid #f0d98b;
+
+  border-radius:
+    14px;
+}
+
+.produto-opcoes p {
+  margin:
+    0 0 10px;
+
+  color:
+    var(--vinho);
+
+  font-size:
+    0.95rem;
+}
+
+.produto-opcoes label {
+  display: flex;
+
+  align-items: center;
+
+  gap:
+    8px;
+
+  margin:
+    9px 0;
+
+  color:
+    var(--texto);
+
+  font-size:
+    0.95rem;
+}
+
+.produto-opcoes input {
+  width:
+    18px;
+
+  height:
+    18px;
+
+  accent-color:
+    var(--vermelho);
+}
+
+
+/* =========================================================
+   16. BOTÕES DOS PRODUTOS E CHECKOUT
+   ========================================================= */
+
+.produto-conteudo>button,
+.dados-cliente>button {
+  width: 100%;
+
+  min-height: 46px;
+
+  padding:
+    13px 18px;
+
+  border:
+    none;
+
+  border-radius:
+    12px;
+
+  background:
+    linear-gradient(135deg,
+      var(--vermelho),
+      var(--vermelho-escuro));
+
+  color:
+    var(--branco);
+
+  font-weight:
+    700;
+
+  box-shadow:
+    0 6px 15px rgba(169, 21, 36, 0.22);
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.produto-conteudo>button:hover,
+.dados-cliente>button:hover {
+  transform:
+    translateY(-2px);
+
+  filter:
+    brightness(1.05);
+
+  box-shadow:
+    0 9px 20px rgba(169, 21, 36, 0.25);
+}
+
+.produto-conteudo>button:disabled {
+  opacity:
+    0.5;
+
+  cursor:
+    not-allowed;
+
+  transform:
+    none;
+}
+
+
+/* =========================================================
+   17. CONTADOR DE ITENS
+   ========================================================= */
+
+.App>p {
+  max-width:
+    760px;
+
+  margin:
+    24px auto 0;
+
+  color:
+    var(--vinho);
+
+  font-weight:
+    700;
+}
+
+
+/* =========================================================
+   18. CARRINHO
+   ========================================================= */
+
+.carrinho {
+  width: min(1100px, calc(100% - 40px));
+  max-width: none;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  padding:
+    22px;
+
+  background:
+    rgba(255, 255, 255, 0.97);
+
+  border:
+    1px solid var(--borda);
+
+  border-radius:
+    20px;
+
+  box-shadow:
+    var(--sombra);
+}
+
+.carrinho h2 {
+  margin-top:
+    0;
+
+  margin-bottom:
+    14px;
+
+  color:
+    var(--vermelho-escuro);
+
+  text-transform:
+    capitalize;
+}
+
+.item-carrinho {
+  padding:
+    18px 0;
+
+  border-bottom:
+    1px solid #eadfd8;
+}
+
+.item-carrinho strong {
+  color:
+    var(--vinho);
+
+  font-size:
+    1.05rem;
+}
+
+.item-carrinho p {
+  margin:
+    8px 0;
+
+  color:
+    var(--texto);
+
+  font-size:
+    0.95rem;
+}
+
+
+/* =========================================================
+   19. AÇÕES DO CARRINHO
+   ========================================================= */
+
+.acoes-carrinho {
+  display:
+    flex;
+
+  flex-wrap:
+    wrap;
+
+  gap:
+    8px;
+
+  align-items:
+    center;
+
+  margin:
+    10px 0;
+}
+
+.acoes-carrinho button {
+  min-width:
+    42px;
+
+  min-height:
+    40px;
+
+  padding:
+    8px 12px;
+
+  border:
+    1px solid #e5d8d0;
+
+  border-radius:
+    10px;
+
+  background:
+    #fff8f4;
+
+  color:
+    var(--vinho);
+
+  font-weight:
+    700;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.acoes-carrinho button:hover {
+  background:
+    var(--amarelo-claro);
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* =========================================================
+   20. TOTAL
+   ========================================================= */
+
+.total-carrinho {
+  margin-top:
+    20px;
+
+  padding-top:
+    16px;
+
+  border-top:
+    2px solid #f0e4da;
+
+  color:
+    var(--vermelho-escuro);
+
+  font-size:
+    1.25rem;
+}
+
+
+/* =========================================================
+   21. DADOS DO CLIENTE / CHECKOUT
+   ========================================================= */
+
+.dados-cliente {
+  width: min(1100px, calc(100% - 40px));
+  max-width: none;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  padding:
+    22px;
+
+  background:
+    var(--branco);
+
+  border:
+    1px solid var(--borda);
+
+  border-radius:
+    20px;
+
+  box-shadow:
+    var(--sombra);
+}
+
+.dados-cliente h2 {
+  margin-top:
+    0;
+
+  margin-bottom:
+    20px;
+
+  color:
+    var(--vermelho-escuro);
+}
+
+.dados-cliente label {
+  display:
+    block;
+
+  margin-bottom:
+    16px;
+
+  color:
+    var(--texto);
+
+  font-weight:
+    700;
+}
+
+.dados-cliente input,
+.dados-cliente select {
+  width:
+    100%;
+
+  min-height:
+    46px;
+
+  margin-top:
+    6px;
+
+  padding:
+    12px 14px;
+
+  border:
+    1px solid #dcc8ba;
+
+  border-radius:
+    10px;
+
+  background:
+    #fffdfa;
+
+  color:
+    var(--texto);
+
+  outline:
+    none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.dados-cliente input:focus,
+.dados-cliente select:focus {
+  border-color:
+    var(--vermelho);
+
+  box-shadow:
+    0 0 0 3px rgba(169, 21, 36, 0.10);
+}
+
+
+/* =========================================================
+   22. ERROS
+   ========================================================= */
+
+.erro-pedido {
+  margin:
+    10px 0 16px;
+
+  padding:
+    11px 13px;
+
+  border:
+    1px solid #f3c3c7;
+
+  border-radius:
+    10px;
+
+  background:
+    #fde8e8;
+
+  color:
+    #8d101b;
+
+  font-size:
+    0.92rem;
+
+  font-weight:
+    700;
+}
+
+
+/* =========================================================
+   23. ACESSIBILIDADE - FOCO
+   ========================================================= */
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline:
+    3px solid rgba(246, 198, 64, 0.7);
+
+  outline-offset:
+    2px;
+}
+
+
+/* =========================================================
+   24. TABLET
+   ========================================================= */
+
+@media (min-width: 680px) {
+  .produtos {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+/* =========================================================
+   25. DESKTOP
+   ========================================================= */
+
+@media (min-width: 1024px) {
+  .produtos {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+  .cabecalho {
+    min-height:
+      300px;
+
+    padding:
+      26px 36px;
+  }
+
+  .logo-sorveteria {
+    width:
+      min(290px, 68%);
+  }
+}
+
+
+/* =========================================================
+   26. CELULAR
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .cabecalho,
+  .categorias,
+  .produtos,
+  .carrinho,
+  .dados-cliente {
+    width: calc(100% - 16px);
+  }
+
+  .rodape {
+    padding:
+      28px 16px 18px;
+  }
+
+  .cabecalho {
+    min-height:
+      340px;
+
+    margin-top:
+      8px;
+
+    padding:
+      24px 14px;
+
+    border-radius:
+      20px;
+  }
+
+  .logo-sorveteria {
+    width:
+      min(240px, 78%);
+  }
+
+  .selo-header {
+    padding:
+      5px 11px;
+
+    font-size:
+      0.62rem;
+  }
+
+  .subtitulo-header {
+    max-width:
+      300px;
+
+    font-size:
+      0.88rem;
+  }
+
+  .destaques-header {
+    gap:
+      6px;
+  }
+
+  .destaques-header span {
+    padding:
+      6px 9px;
+
+    font-size:
+      0.72rem;
+  }
+
+  .botao-pedir-agora {
+    width:
+      100%;
+
+    max-width:
+      250px;
+  }
+
+  .assinatura-header {
+    font-size:
+      0.62rem;
+  }
+
+  .decoracao-sorvete {
+    width:
+      46px;
+
+    height:
+      46px;
+
+    font-size:
+      1.35rem;
+  }
+
+  .sorvete-1 {
+    top:
+      10px;
+
+    left:
+      10px;
+  }
+
+  .sorvete-2 {
+    top:
+      10px;
+
+    right:
+      10px;
+  }
+
+  .sorvete-3 {
+    bottom:
+      10px;
+
+    left:
+      18px;
+  }
+
+  .sorvete-4 {
+    bottom:
+      10px;
+
+    right:
+      18px;
+  }
+
+  .categorias {
+    padding-top:
+      14px;
+  }
+
+  .categorias button {
+    padding:
+      9px 14px;
+
+    font-size:
+      0.82rem;
+  }
+
+  .produto-card img {
+    height:
+      190px;
+  }
+
+  .produto-conteudo {
+    padding:
+      16px;
+  }
+
+  .carrinho,
+  .dados-cliente {
+    margin:
+      24px auto;
+
+    padding:
+      18px;
+
+    border-radius:
+      17px;
+  }
+
+  .acoes-carrinho {
+    align-items:
+      flex-start;
+  }
+}
+
+
+/* =========================================================
+   27. CELULARES PEQUENOS
+   ========================================================= */
+
+@media (max-width: 420px) {
+  .cabecalho {
+    min-height:
+      390px;
+  }
+
+  .logo-sorveteria {
+    width:
+      min(230px, 76%);
+  }
+
+  .subtitulo-header {
+    font-size:
+      0.82rem;
+  }
+
+  .destaques-header span {
+    padding:
+      5px 8px;
+
+    font-size:
+      0.67rem;
+  }
+
+  .decoracao-sorvete {
+    width:
+      40px;
+
+    height:
+      40px;
+
+    font-size:
+      1.15rem;
+  }
+
+  .acoes-carrinho button {
+    min-width:
+      40px;
+
+    min-height:
+      40px;
+  }
+}
+
+
+/* =========================================================
+   28. USUÁRIOS QUE PREFEREM MENOS ANIMAÇÃO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior:
+      auto !important;
+
+    animation-duration:
+      0.01ms !important;
+
+    animation-iteration-count:
+      1 !important;
+
+    transition-duration:
+      0.01ms !important;
+  }
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.rodape {
+  width: 100%;
+
+  margin-top: auto;
+
+  padding:
+    38px max(24px, calc((100% - 1400px) / 2)) 18px;
+
+  background:
+    linear-gradient(135deg,
+      var(--vermelho-escuro),
+      var(--vermelho),
+      var(--vermelho-claro));
+
+  color: white;
+
+  border-radius: 0;
+
+  box-shadow:
+    0 -8px 24px rgba(92, 17, 24, 0.12);
+}
+
+.rodape-conteudo {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr 1.4fr;
+
+  gap: 30px;
+
+  align-items: start;
+}
+
+.rodape-bloco h3 {
+  margin: 0 0 8px;
+
+  font-size: 1.4rem;
+}
+
+.rodape-bloco strong {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: var(--amarelo);
+
+  font-size: 1rem;
+}
+
+.rodape-bloco p {
+  margin: 6px 0;
+
+  color:
+    rgba(255, 255, 255, 0.88);
+
+  font-size: 0.95rem;
+
+  line-height: 1.5;
+}
+
+.rodape-localizacao {
+  min-width: 0;
+}
+
+.mapa-footer {
+  width: 100%;
+
+  overflow: hidden;
+
+  margin-top: 10px;
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.mapa-footer iframe {
+  width: 100%;
+  height: 240px;
+
+  display: block;
+
+  border: 0;
+}
+
+.rodape-final {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-top: 28px;
+
+  padding-top: 18px;
+
+  border-top:
+    1px solid rgba(255, 255, 255, 0.18);
+
+  color:
+    rgba(255, 255, 255, 0.72);
+
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .rodape {
+    padding:
+      28px 16px 18px;
+  }
+
+  .rodape-conteudo {
+    grid-template-columns: 1fr;
+
+    gap: 24px;
+  }
+
+  .mapa-footer iframe {
+    height: 220px;
+  }
+
+  .rodape-final {
+    flex-direction: column;
+
+    text-align: center;
+  }
 }
