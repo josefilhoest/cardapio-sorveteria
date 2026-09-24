@@ -209,7 +209,7 @@ ${icones.peso} + valor do Açaí após a pesagem`
 
           <img
             className="logo-sorveteria"
-            src="/logo-doce-mel.png"
+            src={`${import.meta.env.BASE_URL}logo-doce-mel.png`}
             alt="Sorveteria Doce Mel"
           />
 
