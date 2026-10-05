@@ -66,13 +66,20 @@ export function useCarrinho() {
                 )
                 .filter((item) => item.quantidade > 0)
         );
+
+
+    }
+
+    function limparCarrinho() {
+        setItens([]);
     }
     return {
         itens,
         setItens,
         adicionarItem,
         removerItem,
-        diminuirQuantidade
+        diminuirQuantidade,
+        limparCarrinho,
     };
 }
 
