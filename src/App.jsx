@@ -44,8 +44,8 @@ const PIX = {
 
 const locaisEntrega = [
   {
-    id: "palmeiras",
-    nome: "Palmeiras",
+    id: "palmeira",
+    nome: "Palmeira",
     taxa: 2,
   },
   {
@@ -60,7 +60,7 @@ const locaisEntrega = [
   },
   {
     id: "corrego-depois-igreja",
-    nome: "Córrego até depois da Igreja",
+    nome: "Córrego até depois da igreja",
     taxa: 10,
   },
   {
@@ -80,7 +80,7 @@ const locaisEntrega = [
   },
   {
     id: "pirangi-pedro-poe",
-    nome: "Pirangi até Pedro Põe",
+    nome: "Pirangi até Pedro Poé",
     taxa: 8,
   },
 ];
