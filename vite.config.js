@@ -69,5 +69,5 @@ export default defineConfig({
     }),
   ],
 
-  base: "/cardapio-sorveteria/",
+  base: "/",
 });
