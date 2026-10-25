@@ -200,6 +200,13 @@ function App() {
   ] = useState("");
 
 
+  // Entrega continua sendo a modalidade padrão para preservar o fluxo atual.
+  const [
+    tipoRecebimento,
+    setTipoRecebimento,
+  ] = useState("entrega");
+
+
   const [
     erroPedido,
     setErroPedido,
@@ -358,9 +365,11 @@ function App() {
 
 
   const taxaEntrega =
-    bairro
-      ? bairro.taxa
-      : 0;
+    tipoRecebimento === "retirada"
+      ? 0
+      : bairro
+        ? bairro.taxa
+        : 0;
 
 
   const totalComEntrega =
@@ -441,7 +450,7 @@ function App() {
         !podeFinalizarPedido
       ) {
 
-        return "O delivery funciona de sexta a domingo, das 18:00 às 21:30.";
+        return "Os pedidos funcionam de sexta a domingo, das 18:00 às 21:30.";
 
       }
 
@@ -466,6 +475,7 @@ function App() {
 
 
       if (
+        tipoRecebimento === "entrega" &&
         !endereco.trim()
       ) {
 
@@ -475,6 +485,7 @@ function App() {
 
 
       if (
+        tipoRecebimento === "entrega" &&
         !bairroSelecionado
       ) {
 
@@ -641,9 +652,10 @@ Envie o comprovante após realizar o pagamento.`
 ${icones.pedido} *NOVO PEDIDO*
 
 ${icones.cliente} *Cliente:* ${nomeCliente}
-${icones.endereco} *Endereço:* ${endereco}
-${linhaComplemento}
-${icones.bairro} *Local:* ${bairro?.nome || ""}
+🛍️ *Modalidade:* ${tipoRecebimento === "retirada" ? "Retirada na sorveteria" : "Entrega em domicílio"}
+${tipoRecebimento === "entrega" ? `${icones.endereco} *Endereço:* ${endereco}` : "🏪 *Retirada:* Cliente buscará na sorveteria"}
+${tipoRecebimento === "entrega" ? linhaComplemento : ""}
+${tipoRecebimento === "entrega" ? `${icones.bairro} *Local:* ${bairro?.nome || ""}` : ""}
 ${icones.pagamento} *Pagamento:* ${formaPagamento}
 ${linhaPix}
 
@@ -778,6 +790,8 @@ ${icones.peso} + valor do Açaí após a pesagem`
       setComplementoEndereco("");
 
       setBairroSelecionado("");
+
+      setTipoRecebimento("entrega");
 
       setFormaPagamento("");
 
@@ -1174,7 +1188,9 @@ ${icones.peso} + valor do Açaí após a pesagem`
 
             <p>
 
-              Taxa de entrega:{" "}
+              {tipoRecebimento === "retirada"
+                ? "Retirada na sorveteria — taxa de entrega: "
+                : "Taxa de entrega: "}
 
               {formatarMoeda(
                 taxaEntrega
@@ -1242,8 +1258,8 @@ ${icones.peso} + valor do Açaí após a pesagem`
             {modoTeste
               ? "🧪 Modo de teste"
               : deliveryAberto
-                ? "🟢 Delivery aberto"
-                : "🔴 Delivery fechado"}
+                ? "🟢 Pedidos abertos"
+                : "🔴 Pedidos fechados"}
 
           </strong>
 
@@ -1252,10 +1268,58 @@ ${icones.peso} + valor do Açaí após a pesagem`
 
             {modoTeste
               ? "Pedidos liberados para testes. O pedido será enviado para o número de teste."
-              : "Delivery: sexta a domingo, das 18:00 às 21:30."}
+              : "Entrega e retirada: sexta a domingo, das 18:00 às 21:30."}
 
           </span>
 
+        </div>
+
+
+        {/* ===================================
+            MODALIDADE DO PEDIDO
+        =================================== */}
+
+        <div className="selecao-modalidade">
+          <h3>Como deseja receber seu pedido?</h3>
+          <p>Escolha entrega em domicílio ou retirada na sorveteria.</p>
+
+          <div
+            className="modalidade-pedido"
+            role="group"
+            aria-label="Como deseja receber seu pedido?"
+          >
+            <button
+              type="button"
+              className={`modalidade-opcao ${tipoRecebimento === "entrega" ? "selecionada" : ""}`}
+              aria-pressed={tipoRecebimento === "entrega"}
+              onClick={() => {
+                setTipoRecebimento("entrega");
+                setErroPedido("");
+              }}
+            >
+              <span className="modalidade-icone" aria-hidden="true">🛵</span>
+              <span className="modalidade-texto">
+                <strong>Entrega em domicílio</strong>
+                <small>Receba no endereço informado</small>
+              </span>
+            </button>
+
+            <button
+              type="button"
+              className={`modalidade-opcao ${tipoRecebimento === "retirada" ? "selecionada" : ""}`}
+              aria-pressed={tipoRecebimento === "retirada"}
+              onClick={() => {
+                setTipoRecebimento("retirada");
+                setErroPedido("");
+              }}
+            >
+              <span className="modalidade-icone" aria-hidden="true">🏪</span>
+              <span className="modalidade-texto">
+                <strong>Retirada na sorveteria</strong>
+                <small>Busque seu pedido no estabelecimento</small>
+              </span>
+            </button>
+          </div>
         </div>
 
 
@@ -1282,6 +1346,8 @@ ${icones.peso} + valor do Açaí após a pesagem`
         </label>
 
 
+        {tipoRecebimento === "entrega" && (
+          <>
         <label>
 
           Endereço:
@@ -1328,10 +1394,15 @@ ${icones.peso} + valor do Açaí após a pesagem`
         </label>
 
 
+          </>
+        )}
+
+
         {/* ===================================
             LOCAL DE ENTREGA
         =================================== */}
 
+        {tipoRecebimento === "entrega" && (
         <label>
 
           Local de entrega:
@@ -1381,6 +1452,7 @@ ${icones.peso} + valor do Açaí após a pesagem`
           </select>
 
         </label>
+        )}
 
 
         {/* ===================================
@@ -1610,7 +1682,7 @@ ${icones.peso} + valor do Açaí após a pesagem`
             ? "Finalizar pedido de teste"
             : deliveryAberto
               ? "Finalizar pedido"
-              : "Delivery fechado"}
+              : "Pedidos fechados"}
 
         </button>
 
