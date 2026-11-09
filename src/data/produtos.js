@@ -450,6 +450,17 @@ export const produtos = [
 
     },
 
+    {
+        id: "pastel-mistao",
+        categoria: "pasteis",
+        nome: "Pastel Mistão",
+        descricao: "Pastel crocante com recheio especial.",
+        preco: 14,
+        imagem: `${import.meta.env.BASE_URL}produtos/pasteis.webp`,
+        disponivel: true,
+        destaque: false,
+    },
+
 
 
     {
